@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在前往 Beadify 下载页面...</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #FFF9F5;
+            color: #5C4B49;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .loader {
+            border: 4px solid #F0E5DE;
+            border-top: 4px solid #FF8FA3;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #FF8FA3;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: bold;
+            display: none; /* 默认隐藏，只有跳转失败时才显示兜底按钮 */
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <h3>正在为您匹配对应的应用商店...</h3>
+    <a id="fallbackBtn" class="btn" href="#">手动点击跳转</a>
+
+    <script>
+        // 核心跳转逻辑
+        function redirect() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            var iosLink = "https://apps.apple.com/app/id6762236416";
+            var androidLink = "https://play.google.com/store/apps/details?id=com.solopeak.beadify";
+            var fallbackBtn = document.getElementById('fallbackBtn');
+
+            // 判断是否是 iOS
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                window.location.href = iosLink;
+                fallbackBtn.href = iosLink;
+                fallbackBtn.style.display = "inline-block";
+                fallbackBtn.innerText = "前往 App Store";
+            } 
+            // 判断是否是 Android
+            else if (/android/i.test(userAgent)) {
+                window.location.href = androidLink;
+                fallbackBtn.href = androidLink;
+                fallbackBtn.style.display = "inline-block";
+                fallbackBtn.innerText = "前往 Google Play";
+            } 
+            // 电脑端或其他设备
+            else {
+                document.querySelector('h3').innerText = "请使用手机扫描二维码下载 Beadify";
+                // 电脑端默认展示苹果链接作为兜底
+                fallbackBtn.href = iosLink;
+                fallbackBtn.style.display = "inline-block";
+                fallbackBtn.innerText = "查看 App Store 详情";
+            }
+        }
+
+        // 执行跳转
+        setTimeout(redirect, 100);
+    </script>
+</body>
+</html>
