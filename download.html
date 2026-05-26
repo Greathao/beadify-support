@@ -59,14 +59,14 @@
                 fallbackBtn.href = iosLink;
                 fallbackBtn.style.display = "inline-block";
                 fallbackBtn.innerText = "前往 App Store";
-            } 
+            }
             // 判断是否是 Android
             else if (/android/i.test(userAgent)) {
                 window.location.href = androidLink;
                 fallbackBtn.href = androidLink;
                 fallbackBtn.style.display = "inline-block";
                 fallbackBtn.innerText = "前往 Google Play";
-            } 
+            }
             // 电脑端或其他设备
             else {
                 document.querySelector('h3').innerText = "请使用手机扫描二维码下载 Beadify";
