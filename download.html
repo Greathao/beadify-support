@@ -50,7 +50,6 @@
         function redirect() {
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
             var iosLink = "https://apps.apple.com/app/id6762236416";
-            var androidLink = "https://play.google.com/store/apps/details?id=com.solopeak.beadify";
             var fallbackBtn = document.getElementById('fallbackBtn');
 
             // 判断是否是 iOS
@@ -60,12 +59,12 @@
                 fallbackBtn.style.display = "inline-block";
                 fallbackBtn.innerText = "前往 App Store";
             }
-            // 判断是否是 Android
+            // Beadify is currently available on iPhone and iPad only.
             else if (/android/i.test(userAgent)) {
-                window.location.href = androidLink;
-                fallbackBtn.href = androidLink;
+                document.querySelector('h3').innerText = "Beadify 目前支持 iPhone 和 iPad";
+                fallbackBtn.href = iosLink;
                 fallbackBtn.style.display = "inline-block";
-                fallbackBtn.innerText = "前往 Google Play";
+                fallbackBtn.innerText = "查看 App Store 详情";
             }
             // 电脑端或其他设备
             else {
@@ -82,4 +81,3 @@
     </script>
 </body>
 </html>
-
